@@ -1,12 +1,8 @@
-﻿using GameZone.Attributes;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace GameZone.ViewModels
+﻿namespace GameZone.ViewModels
 {
-    public class CreateGameViewModel
+    public class EditGameViewModel
     {
+        public int GameId { get; set; }
         [MaxLength(250)]
         public string GameName { get; set; } = string.Empty;
 
@@ -23,8 +19,7 @@ namespace GameZone.ViewModels
         [MaxLength(2500)]
         public string Description { get; set; } = string.Empty;
 
-        [AllowedExtentions(FileSettings.AllowedExtensions),
-        MaxFileSize(FileSettings.MaxFileSizeInBytes)]
+
         public IFormFile Cover { get; set; } = default!;
     }
 }

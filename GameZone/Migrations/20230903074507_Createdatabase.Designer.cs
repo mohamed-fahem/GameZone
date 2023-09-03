@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameZone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230830085651_InitialDatabase")]
-    partial class InitialDatabase
+    [Migration("20230903074507_Createdatabase")]
+    partial class Createdatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,11 @@ namespace GameZone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("DeviceId");
 
                     b.ToTable("Devices");
@@ -88,22 +93,26 @@ namespace GameZone.Migrations
                         new
                         {
                             DeviceId = 1,
-                            DeviceName = "PlayStation"
+                            DeviceName = "PlayStation",
+                            Icon = "bi bi-playstation"
                         },
                         new
                         {
                             DeviceId = 2,
-                            DeviceName = "xbox"
+                            DeviceName = "xbox",
+                            Icon = "bi bi-xbox"
                         },
                         new
                         {
                             DeviceId = 3,
-                            DeviceName = "Nintendo Switch"
+                            DeviceName = "Nintendo Switch",
+                            Icon = "bi bi-nintendo-switch"
                         },
                         new
                         {
                             DeviceId = 4,
-                            DeviceName = "PC"
+                            DeviceName = "PC",
+                            Icon = "bi bi-pc-display"
                         });
                 });
 
@@ -120,11 +129,13 @@ namespace GameZone.Migrations
 
                     b.Property<string>("Cover")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2500)
+                        .HasColumnType("nvarchar(2500)");
 
                     b.Property<string>("GameName")
                         .IsRequired()
@@ -139,23 +150,15 @@ namespace GameZone.Migrations
 
             modelBuilder.Entity("GameZone.Models.GameDevice", b =>
                 {
-                    b.Property<int>("GameDeviceId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameDeviceId"));
 
                     b.Property<int>("DeviceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameDeviceId");
+                    b.HasKey("GameId", "DeviceId");
 
                     b.HasIndex("DeviceId");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("GameDevices");
                 });
@@ -174,7 +177,7 @@ namespace GameZone.Migrations
             modelBuilder.Entity("GameZone.Models.GameDevice", b =>
                 {
                     b.HasOne("GameZone.Models.Device", "Devices")
-                        .WithMany("Games")
+                        .WithMany()
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -191,11 +194,6 @@ namespace GameZone.Migrations
                 });
 
             modelBuilder.Entity("GameZone.Models.Category", b =>
-                {
-                    b.Navigation("Games");
-                });
-
-            modelBuilder.Entity("GameZone.Models.Device", b =>
                 {
                     b.Navigation("Games");
                 });

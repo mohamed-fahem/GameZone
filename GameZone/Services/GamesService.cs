@@ -1,4 +1,6 @@
-﻿namespace GameZone.Services;
+﻿
+
+namespace GameZone.Services;
 
 public class GamesService : IGamesService
 {
@@ -11,7 +13,7 @@ public class GamesService : IGamesService
     {
         _context = context;
         _webHostEnvironment = webHostEnvironment;
-        _imagesPath = $"{_webHostEnvironment.WebRootPath}/assets/images";
+        _imagesPath = $"{_webHostEnvironment.WebRootPath}{FileSettings.ImagesPath}";
     }
 
     public async Task Create(CreateGameViewModel model)

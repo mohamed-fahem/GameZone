@@ -15,6 +15,9 @@
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<GameDevice>()
+                .HasKey(e => new { e.GameId, e.DeviceId });
+
             modelBuilder.Entity<Category>()
                 .HasData(new Category[]
                 {
@@ -29,12 +32,12 @@
             modelBuilder.Entity<Device>()
                 .HasData(new Device[]
                 {
-                new Device { DeviceId = 1, DeviceName = "PlayStation" },
-                new Device { DeviceId = 2, DeviceName = "xbox" },
-                new Device { DeviceId = 3, DeviceName = "Nintendo Switch" },
-                new Device { DeviceId = 4, DeviceName = "PC" }
+                    new Device { DeviceId = 1, DeviceName = "PlayStation", Icon = "bi bi-playstation" },
+                    new Device { DeviceId = 2, DeviceName = "xbox", Icon = "bi bi-xbox" },
+                    new Device { DeviceId = 3, DeviceName = "Nintendo Switch", Icon = "bi bi-nintendo-switch" },
+                    new Device { DeviceId = 4, DeviceName = "PC", Icon = "bi bi-pc-display" }
                 });
-            
+
 
         }
     }

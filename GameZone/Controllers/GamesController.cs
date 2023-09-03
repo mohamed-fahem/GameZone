@@ -58,13 +58,15 @@
         // GET: GamesController1/Edit/5
         public ActionResult Edit(int id)
         {
+            
+
             return View();
         }
 
         // POST: GamesController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit()
         {
             try
             {
